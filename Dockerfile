@@ -19,7 +19,8 @@ FROM scratch
 
 COPY --from=builder /go/bin/ofelia /usr/bin/ofelia
 
-VOLUME /etc/ofelia/
+COPY config.ini /etc/ofelia/config.ini
+
 ENTRYPOINT ["/usr/bin/ofelia"]
 
 CMD ["daemon", "--config", "/etc/ofelia/config.ini"]
