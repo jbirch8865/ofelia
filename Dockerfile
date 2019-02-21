@@ -2,8 +2,6 @@ ARG ARCH=amd64
 
 FROM golang:1.10.0 AS builder-amd64
 
-FROM golang:1.10 AS builder-arm32v6
-
 FROM builder-${ARCH} AS builder
 
 WORKDIR ${GOPATH}/src/github.com/mcuadros/ofelia
@@ -19,8 +17,8 @@ FROM scratch
 
 COPY --from=builder /go/bin/ofelia /usr/bin/ofelia
 
+VOLUME /etc/ofelia/
 COPY config.ini /etc/ofelia/config.ini
-
 ENTRYPOINT ["/usr/bin/ofelia"]
 
 CMD ["daemon", "--config", "/etc/ofelia/config.ini"]
